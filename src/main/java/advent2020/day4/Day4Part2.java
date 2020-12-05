@@ -12,9 +12,6 @@ import java.util.regex.Pattern;
 
 public class Day4Part2 {
 
-    public Day4Part2() {
-    }
-
     public int validatePassports(String fileName) throws IOException {
         String[] requiredFields = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"};
         Path path = Paths.get("src/test/resources/" + fileName);
