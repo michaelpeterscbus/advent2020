@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Day7Part1 {
-    public Day7Part1() {
+public class Day7Part2 {
+    public Day7Part2() {
     }
 
     public int getBags(String fileName) throws IOException {
@@ -34,27 +34,18 @@ public class Day7Part1 {
                 bags.put(color, contentMap);
             }
         }
-        int shinyGoldCount = 0;
-        for (String color: bags.keySet()){
-            if (containsShinyGold(color, bags)) {
-                shinyGoldCount++;
-            }
-        }
-        return shinyGoldCount;
+        return countBags("shiny gold", bags, 1) - 1;
     }
 
-    public boolean containsShinyGold(String color, Map<String, Map<String,Integer>> bags){
+    public int countBags(String color, Map<String, Map<String,Integer>> bags, int bagCount) {
         Map<String,Integer> content = bags.get(color);
         if (content != null) {
-            for (String contentColor : content.keySet()) {
-                if (contentColor.equals("shiny gold")) {
-                    return true;
-                }
-                if (containsShinyGold(contentColor, bags)) {
-                    return true;
+            for (String key : content.keySet()) {
+                if (content.get(key) != null) {
+                    bagCount += content.get(key) + content.get(key) * countBags(key, bags, 0);
                 }
             }
         }
-        return false;
+        return bagCount;
     }
 }
